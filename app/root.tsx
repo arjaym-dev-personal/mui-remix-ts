@@ -11,9 +11,8 @@ import {
 } from "@remix-run/react";
 import { withEmotionCache } from "@emotion/react";
 import { unstable_useEnhancedEffect as useEnhancedEffect } from "@mui/material";
-import theme from "./src/theme";
-import ClientStyleContext from "./src/ClientStyleContext";
-import Layout from "./src/Layout";
+import theme from "./src/config/styles/theme";
+import ClientStyleContext from "./src/config/context/ClientStyleContext";
 
 interface DocumentProps {
   children: React.ReactNode;
@@ -71,7 +70,7 @@ const Document = withEmotionCache(
         </body>
       </html>
     );
-  },
+  }
 );
 
 // https://remix.run/docs/en/main/route/component
@@ -79,9 +78,7 @@ const Document = withEmotionCache(
 export default function App() {
   return (
     <Document>
-      <Layout>
-        <Outlet />
-      </Layout>
+      <Outlet />
     </Document>
   );
 }
@@ -113,12 +110,10 @@ export function ErrorBoundary() {
 
     return (
       <Document title={`${error.status} ${error.statusText}`}>
-        <Layout>
-          <h1>
-            {error.status}: {error.statusText}
-          </h1>
-          {message}
-        </Layout>
+        <h1>
+          {error.status}: {error.statusText}
+        </h1>
+        {message}
       </Document>
     );
   }
@@ -127,17 +122,15 @@ export function ErrorBoundary() {
     console.error(error);
     return (
       <Document title="Error!">
-        <Layout>
-          <div>
-            <h1>There was an error</h1>
-            <p>{error.message}</p>
-            <hr />
-            <p>
-              Hey, developer, you should replace this with what you want your
-              users to see.
-            </p>
-          </div>
-        </Layout>
+        <div>
+          <h1>There was an error</h1>
+          <p>{error.message}</p>
+          <hr />
+          <p>
+            Hey, developer, you should replace this with what you want your
+            users to see.
+          </p>
+        </div>
       </Document>
     );
   }
